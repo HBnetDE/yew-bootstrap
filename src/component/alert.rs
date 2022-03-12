@@ -60,6 +60,9 @@ pub fn alert(props: &AlertProps) -> Html {
         classes.push("alert-dismissible");
     }
 
+    // TODO: events
+    // To be the same as the bootstrap javascript library this needs events
+
     if *visible {
         html! {
             <div
@@ -80,5 +83,21 @@ pub fn alert(props: &AlertProps) -> Html {
         }
     } else {
         html!(<></>)
+    }
+}
+
+#[derive(Properties, PartialEq)]
+pub struct AlertLinkProps {
+    #[prop_or("#".to_string())]
+    pub to: String,
+
+    #[prop_or_default]
+    pub children: Children,
+}
+
+#[function_component(AlertLink)]
+pub fn alert_link(props: &AlertLinkProps) -> Html {
+    html! {
+        <a href={props.to.clone()} class={classes!("alert-link")}>{ for props.children.iter() }</a>
     }
 }

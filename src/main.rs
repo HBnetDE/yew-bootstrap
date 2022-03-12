@@ -25,7 +25,7 @@ impl Component for Model {
                     <section>
                         <h1>{ "Alerts" }</h1>
                         <Alert style={AlertType::Primary} dismissable={true}>
-                            { "This is a primary alert—check it out!" }
+                            { "This is a " } <AlertLink>{ "primary" }</AlertLink> {" alert—check it out!"}
                         </Alert>
                         <Alert style={AlertType::Secondary} dismissable={true} class={"show fade"}>
                             { "This is a secondary alert—check it out!" }
