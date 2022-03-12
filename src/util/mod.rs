@@ -1,4 +1,5 @@
 mod color;
+pub(crate) mod css_class;
 mod include;
 mod size;
 
