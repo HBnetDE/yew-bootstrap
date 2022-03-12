@@ -3,4 +3,4 @@ serve:
 
 # Checks with all features enabled
 check:
-    cargo check --features alert
+    cargo check --features alert,button

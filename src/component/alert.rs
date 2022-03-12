@@ -3,32 +3,16 @@ use yew::prelude::*;
 
 use crate::util::css_class::CssClass;
 
-#[derive(Clone, Copy, PartialEq, Eq)]
-pub enum AlertType {
-    Primary,
-    Secondary,
-    Success,
-    Danger,
-    Warning,
-    Info,
-    Light,
-    Dark,
-}
-
-impl Into<CssClass> for AlertType {
-    fn into(self) -> CssClass {
-        CssClass(match self {
-            Self::Primary => "alert-primary",
-            Self::Secondary => "alert-secondary",
-            Self::Success => "alert-success",
-            Self::Danger => "alert-danger",
-            Self::Warning => "alert-warning",
-            Self::Info => "alert-info",
-            Self::Light => "alert-light",
-            Self::Dark => "alert-dark",
-        })
-    }
-}
+css_class_enum!(AlertType, [
+    Primary => "alert-primary",
+    Secondary => "alert-secondary",
+    Success => "alert-success",
+    Danger => "alert-danger",
+    Warning => "alert-warning",
+    Info => "alert-info",
+    Light => "alert-light",
+    Dark => "alert-dark"
+]);
 
 #[derive(Properties, Clone, PartialEq)]
 pub struct AlertProps {

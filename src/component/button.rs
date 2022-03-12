@@ -1,6 +1,8 @@
-use crate::util::Color;
+#![allow(dead_code)]
+
 use yew::prelude::*;
-use yewtil::NeqAssign;
+
+use crate::util::css_class::CssClass;
 
 #[derive(Clone, PartialEq)]
 pub enum ButtonSize {
@@ -15,20 +17,34 @@ impl Default for ButtonSize {
     }
 }
 
-pub struct Button {
-    props: ComponentProps,
+css_class_enum!(ButtonColor, [
+    Primary => "btn-primary",
+    Secondary => "btn-secondary",
+    Success => "btn-success",
+    Danger => "btn-danger",
+    Warning => "btn-warning",
+    Info => "btn-info",
+    Light => "btn-light",
+    Dark => "btn-dark",
+    Link => "btn-link"
+]);
+
+impl ButtonColor {
+    fn outlined(&self) -> String {
+        let class: CssClass = self.clone().into();
+        let split: Vec<_> = class.0.split("-").collect();
+        let color = split.last().unwrap();
+        format!("btn-outline-{}", color)
+    }
 }
 
 #[derive(Properties, Clone, PartialEq)]
-pub struct ComponentProps {
+pub struct ButtonProps {
     #[prop_or_default]
     pub class: String,
 
     #[prop_or_default]
     pub children: Children,
-
-    #[prop_or_default]
-    pub block: bool,
 
     #[prop_or_default]
     pub disabled: bool,
@@ -45,57 +61,33 @@ pub struct ComponentProps {
     #[prop_or_default]
     pub size: ButtonSize,
 
-    #[prop_or(Color::Primary)]
-    pub style: Color,
-
-    #[prop_or_default]
-    pub text: String,
+    #[prop_or(ButtonColor::Primary)]
+    pub style: ButtonColor,
 }
 
-impl Component for Button {
-    type Message = ();
-    type Properties = ComponentProps;
+#[function_component(Button)]
+pub fn button(props: &ButtonProps) -> Html {
+    let mut classes = classes!("btn", &props.class);
 
-    fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
-        Self { props }
+    if props.outline {
+        classes.push(props.style.outlined())
+    } else {
+        let style_class: CssClass = props.style.into();
+        classes.push(style_class);
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
+    match props.size {
+        ButtonSize::Large => classes.push("btn-lg"),
+        ButtonSize::Small => classes.push("btn-sm"),
+        _ => (),
+    };
 
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props.neq_assign(props)
-    }
-
-    fn view(&self) -> Html {
-        let mut classes = Classes::new();
-        classes.push("btn");
-        if self.props.outline {
-            classes.push(format!("btn-outline-{}", self.props.style));
-        } else {
-            classes.push(format!("btn-{}", self.props.style));
-        }
-        match self.props.size {
-            ButtonSize::Large => classes.push("btn-lg"),
-            ButtonSize::Small => classes.push("btn-sm"),
-            _ => (),
-        }
-        if self.props.block {
-            classes.push("btn-block");
-        }
-        classes.push(self.props.class.clone());
-
-        html! {
-            <button
-                class=classes
-                disabled=self.props.disabled
-                name=self.props.name.clone()
-                onclick=self.props.onclick.clone()
-            >
-                { &self.props.text }
-                { for self.props.children.iter() }
-            </button>
-        }
+    html! {
+        <button class={classes}
+            disabled={props.disabled}
+            onclick={&props.onclick}
+            name={props.name.clone()}>
+            { for props.children.iter() }
+        </button>
     }
 }

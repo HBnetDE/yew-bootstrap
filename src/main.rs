@@ -2,23 +2,21 @@ use yew::prelude::*;
 use yew_bootstrap::component::*;
 use yew_bootstrap::util::*;
 
-struct Model {
-    value: i64,
-}
+struct Model;
 
 impl Component for Model {
     type Message = ();
     type Properties = ();
 
     fn create(_ctx: &Context<Model>) -> Self {
-        Self { value: 0 }
+        Self
     }
 
-    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
+    fn update(&mut self, _ctx: &Context<Self>, _msg: Self::Message) -> bool {
         false
     }
 
-    fn view(&self, ctx: &Context<Self>) -> Html {
+    fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
                     <>
                     {include_inline()}
@@ -52,6 +50,29 @@ impl Component for Model {
                             { "This is a link alert—check it out!" }
                         </Alert> */
 
+                    </section>
+                    <section>
+                        <h1>{"Buttons"}</h1>
+                        <Button style={ButtonColor::Primary}>{"Primary"}</Button>
+                        <Button style={ButtonColor::Secondary}>{"Secondary"}</Button>
+                        <Button style={ButtonColor::Success}>{"Success"}</Button>
+                        <Button style={ButtonColor::Danger}>{"Danger"}</Button>
+                        <Button style={ButtonColor::Warning}>{"Warning"}</Button>
+                        <Button style={ButtonColor::Info}>{"Info"}</Button>
+                        <Button style={ButtonColor::Light}>{"Light"}</Button>
+                        <Button style={ButtonColor::Dark}>{"Dark"}</Button>
+                        <Button style={ButtonColor::Link}>{"Link"}</Button>
+                    </section>
+                    <section>
+                        <h2>{"Outline buttons"}</h2>
+                        <Button style={ButtonColor::Primary} outline={true}>{"Primary"}</Button>
+                        <Button style={ButtonColor::Secondary} outline={true}>{"Secondary"}</Button>
+                        <Button style={ButtonColor::Success} outline={true}>{"Success"}</Button>
+                        <Button style={ButtonColor::Danger} outline={true}>{"Danger"}</Button>
+                        <Button style={ButtonColor::Warning} outline={true}>{"Warning"}</Button>
+                        <Button style={ButtonColor::Info} outline={true}>{"Info"}</Button>
+                        <Button style={ButtonColor::Light} outline={true}>{"Light"}</Button>
+                        <Button style={ButtonColor::Dark} outline={true}>{"Dark"}</Button>
                     </section>
                     </>
                 }
@@ -130,45 +151,8 @@ impl Component for Model {
                     </Row>
                 </div>
                 <div id="components" class="p-3">
-                    <h1>{ "Alerts" }</h1>
-                    <Alert style=Color::Primary>
-                        { "This is a primary alert—check it out!" }
-                    </Alert>
-                    <Alert style=Color::Secondary>
-                        { "This is a secondary alert—check it out!" }
-                    </Alert>
-                    <Alert style=Color::Success>
-                        { "This is a success alert—check it out!" }
-                    </Alert>
-                    <Alert style=Color::Danger>
-                        { "This is a danger alert—check it out!" }
-                    </Alert>
-                    <Alert style=Color::Warning>
-                        { "This is a warning alert—check it out!" }
-                    </Alert>
-                    <Alert style=Color::Info>
-                        { "This is a info alert—check it out!" }
-                    </Alert>
-                    <Alert style=Color::Light>
-                        { "This is a light alert—check it out!" }
-                    </Alert>
-                    <Alert style=Color::Dark>
-                        { "This is a dark alert—check it out!" }
-                    </Alert>
-                    <Alert style=Color::Link>
-                        { "This is a link alert—check it out!" }
-                    </Alert>
 
-                    <h1>{"Buttons"}</h1>
-                    <Button style=Color::Primary>{"Primary"}</Button>
-                    <Button style=Color::Secondary>{"Secondary"}</Button>
-                    <Button style=Color::Success>{"Success"}</Button>
-                    <Button style=Color::Danger>{"Danger"}</Button>
-                    <Button style=Color::Warning>{"Warning"}</Button>
-                    <Button style=Color::Info>{"Info"}</Button>
-                    <Button style=Color::Light>{"Light"}</Button>
-                    <Button style=Color::Dark>{"Dark"}</Button>
-                    <Button style=Color::Link>{"Link"}</Button>
+
 
                     <h2>{"Outline buttons"}</h2>
                     <Button style=Color::Primary outline=true>{"Primary"}</Button>
