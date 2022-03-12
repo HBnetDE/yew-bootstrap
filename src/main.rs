@@ -2,36 +2,62 @@ use yew::prelude::*;
 use yew_bootstrap::component::*;
 use yew_bootstrap::util::*;
 
-enum Msg {
-    #[allow(dead_code)]
-    AddOne,
-}
-
 struct Model {
-    // `ComponentLink` is like a reference to a component.
-    // It can be used to send messages to the component
-    _link: ComponentLink<Self>,
     value: i64,
 }
 
 impl Component for Model {
-    type Message = Msg;
+    type Message = ();
     type Properties = ();
 
-    fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { _link: link, value: 0 }
+    fn create(_ctx: &Context<Model>) -> Self {
+        Self { value: 0 }
     }
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
-        match msg {
-            Msg::AddOne => {
-                self.value += 1;
-                true
-            }
+    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
+        false
+    }
+
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        html! {
+            <>
+            {include_inline()}
+            <section>
+                <h1>{ "Alerts" }</h1>
+                <Alert style={Color::Primary}>
+                    { "This is a primary alert—check it out!" }
+                </Alert>
+                <Alert style={Color::Secondary}>
+                    { "This is a secondary alert—check it out!" }
+                </Alert>
+                <Alert style={Color::Success}>
+                    { "This is a success alert—check it out!" }
+                </Alert>
+                <Alert style={Color::Danger}>
+                    { "This is a danger alert—check it out!" }
+                </Alert>
+                <Alert style={Color::Warning}>
+                    { "This is a warning alert—check it out!" }
+                </Alert>
+                <Alert style={Color::Info}>
+                    { "This is a info alert—check it out!" }
+                </Alert>
+                <Alert style={Color::Light}>
+                    { "This is a light alert—check it out!" }
+                </Alert>
+                <Alert style={Color::Dark}>
+                    { "This is a dark alert—check it out!" }
+                </Alert>
+                <Alert style={Color::Link}>
+                    { "This is a link alert—check it out!" }
+                </Alert>
+
+            </section>
+            </>
         }
     }
 
-    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+    /*     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
         false
     }
 
@@ -153,7 +179,121 @@ impl Component for Model {
                     <Button style=Color::Info outline=true>{"Info"}</Button>
                     <Button style=Color::Light outline=true>{"Light"}</Button>
                     <Button style=Color::Dark outline=true>{"Dark"}</Button>
-                    <Button style=Color::Link outline=true text="Link2" />
+                    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+                        false
+                    }
+
+                    fn view(&self) -> Html {
+                        /*
+                        <div>
+                            <button onclick=self.link.callback(|_| Msg::AddOne)>{ "+1" }</button>
+                            <p>{ self.value }</p>
+                        </div>
+                        */
+                        html! {
+                            <>
+                                {include_inline()}
+                                <div id="layout" class="p-3">
+                                    <h1>{ "Containers" }</h1>
+                                    <Container class="bg-primary">{"Normal"}</Container>
+                                    <Container class="bg-secondary" fluid=true>{"Fluid"}</Container>
+                                    <Container class="bg-success" size=ContainerSize::Small>{"Small"}</Container>
+                                    <Container class="bg-danger" size=ContainerSize::Medium>{"Medium"}</Container>
+                                    <Container class="bg-warning" size=ContainerSize::Large>{"Large"}</Container>
+                                    <Container class="bg-info" size=ContainerSize::ExtraLarge>{"Extra Large"}</Container>
+                                    <Container class="bg-light" size=ContainerSize::ExtraExtraLarge>{"Extra Large"}</Container>
+
+                                    <h1>{ "Grid" }</h1>
+                                    <Row>
+                                        <Column class="bg-info">
+                                            {"1 of 2"}
+                                        </Column>
+                                        <Column class="bg-primary">
+                                            {"2 of 2"}
+                                        </Column>
+                                    </Row>
+                                    <Row>
+                                        <Column class="bg-danger">
+                                            {"1 of 3"}
+                                        </Column>
+                                        <Column class="bg-warning">
+                                            {"2 of 3"}
+                                        </Column>
+                                        <Column class="bg-success">
+                                            {"3 of 3"}
+                                        </Column>
+                                    </Row>
+                                    <Row>
+                                        <Column class="bg-info">
+                                            {"1 of 3"}
+                                        </Column>
+                                        <Column size=6 class="bg-secondary">
+                                            {"2 of 3 (wider)"}
+                                        </Column>
+                                        <Column class="bg-primary">
+                                            {"3 of 3"}
+                                        </Column>
+                                    </Row>
+                                    <Row>
+                                        <Column class="bg-danger">
+                                            {"1 of 3"}
+                                        </Column>
+                                        <Column size=5 class="bg-secondary">
+                                            {"2 of 3 (wider)"}
+                                        </Column>
+                                        <Column class="bg-success">
+                                            {"3 of 3"}
+                                        </Column>
+                                    </Row>
+                                    <Row>
+                                        <Column size=None md=5 class="bg-info">
+                                            {"md-only"}
+                                        </Column>
+                                    </Row>
+                                </div>
+                                <div id="components" class="p-3">
+                                    <h1>{ "Alerts" }</h1>
+                                    <Alert style=Color::Primary>
+                                        { "This is a primary alert—check it out!" }
+                                    </Alert>
+                                    <Alert style=Color::Secondary>
+                                        { "This is a secondary alert—check it out!" }
+                                    </Alert>
+                                    <Alert style=Color::Success>
+                                        { "This is a success alert—check it out!" }
+                                    </Alert>
+                                    <Alert style=Color::Danger>
+                                        { "This is a danger alert—check it out!" }
+                                    </Alert>
+                                    <Alert style=Color::Warning>
+                                        { "This is a warning alert—check it out!" }
+                                    </Alert>
+                                    <Alert style=Color::Info>
+                                        { "This is a info alert—check it out!" }
+                                    </Alert>
+                                    <Alert style=Color::Light>
+                                        { "This is a light alert—check it out!" }
+                                    </Alert>
+                                    <Alert style=Color::Dark>
+                                        { "This is a dark alert—check it out!" }
+                                    </Alert>
+                                    <Alert style=Color::Link>
+                                        { "This is a link alert—check it out!" }
+                                    </Alert>
+
+                                    <h1>{"Buttons"}</h1>
+                                    <Button style=Color::Primary>{"Primary"}</Button>
+                                    <Button style=Color::Secondary>{"Secondary"}</Button>
+                                    <Button style=Color::Success>{"Success"}</Button>
+                                    <Button style=Color::Danger>{"Danger"}</Button>
+                                    <Button style=Color::Warning>{"Warning"}</Button>
+                                    <Button style=Color::Info>{"Info"}</Button>
+                                    <Button style=Color::Light>{"Light"}</Button>
+                                    <Button style=Color::Dark>{"Dark"}</Button>
+                                    <Button style=Color::Link>{"Link"}</Button>
+
+                                    <h2>{"Outline buttons"}</h2>
+                                    <Button style=Color::Link outline=true text="Link2" />
 
                     <h2>{"Sizes"}</h2>
                     <Button style=Color::Primary size=ButtonSize::Large>{"Large button"}</Button>
@@ -206,7 +346,7 @@ impl Component for Model {
 
     fn rendered(&mut self, _first_render: bool) {}
 
-    fn destroy(&mut self) {}
+    fn destroy(&mut self) {} */
 }
 
 fn main() {

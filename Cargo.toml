@@ -16,7 +16,7 @@ repository = "https://github.com/foorack/yew-bootstrap/"
 crate-type = ["rlib", "cdylib"]
 
 [dependencies]
-yew = "0.18"
+yew = "0.19.3"
 yewtil = "0.4.0"
 log = "0.4"
 #console_log = { version = "0.2", features = ["color"] }

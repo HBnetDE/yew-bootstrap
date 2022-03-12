@@ -1,11 +1,7 @@
+use yew::classes;
 use yew::prelude::*;
-use yewtil::NeqAssign;
 
 use crate::util::Color;
-
-pub struct Alert {
-    props: ComponentProps,
-}
 
 #[derive(Properties, Clone, PartialEq)]
 pub struct ComponentProps {
@@ -22,36 +18,15 @@ pub struct ComponentProps {
     pub text: String,
 }
 
-impl Component for Alert {
-    type Message = ();
-    type Properties = ComponentProps;
-
-    fn create(props: Self::Properties, _link: ComponentLink<Self>) -> Self {
-        Self { props }
-    }
-
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
-        self.props.neq_assign(props)
-    }
-
-    fn view(&self) -> Html {
-        let mut classes = Classes::new();
-        classes.push("alert");
-        classes.push(format!("alert-{}", self.props.style));
-        classes.push(self.props.class.clone());
-
-        html! {
-            <div
-                class=classes
-                role="alert"
-            >
-                { &self.props.text }
-                { for self.props.children.iter() }
-            </div>
-        }
+#[function_component(Alert)]
+pub fn alert(props: &ComponentProps) -> Html {
+    html! {
+        <div
+            class={classes!("alert", format!("alert-{}", props.style), &props.class)}
+            role="alert"
+        >
+            { &props.text }
+            { for props.children.iter() }
+        </div>
     }
 }
