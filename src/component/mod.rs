@@ -1,3 +1,4 @@
+#[cfg(feature = "alert")]
 mod alert;
 /* mod button;
 mod button_group;
