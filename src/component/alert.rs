@@ -1,8 +1,6 @@
 use yew::classes;
 use yew::prelude::*;
 
-use crate::util::css_class::CssClass;
-
 css_class_enum!(AlertType, [
     Primary => "alert-primary",
     Secondary => "alert-secondary",
@@ -31,9 +29,8 @@ pub struct AlertProps {
 
 #[function_component(Alert)]
 pub fn alert(props: &AlertProps) -> Html {
-    let alert_type: CssClass = props.style.into();
     let visible = use_state_eq(|| true);
-    let mut classes = classes!("alert", alert_type, &props.class);
+    let mut classes = classes!("alert", &props.class, props.style.into_classes());
 
     let onclick = {
         let visible = visible.clone();

@@ -1,5 +1,3 @@
-pub(crate) use util::css_class::CssClass;
-
 macro_rules! css_class_enum {
     ($name:ident, [$($variant:ident => $class:literal),*]) => {
         #[derive(Clone, Copy, PartialEq, Eq)]
@@ -7,11 +5,24 @@ macro_rules! css_class_enum {
             $($variant),*
         }
 
-        impl Into<$crate::CssClass> for $name {
-            fn into(self) -> $crate::CssClass {
-                $crate::CssClass(match self {
+        impl Into<&'static str> for $name {
+            fn into(self) -> &'static str {
+                match self {
                     $(Self::$variant => $class),*
-                })
+                }
+            }
+        }
+
+        impl Into<yew::Classes> for $name {
+            fn into(self) -> yew::Classes {
+                let class: &'static str = self.into();
+                classes!(class)
+            }
+        }
+
+        impl $name {
+            pub fn into_classes(self) -> yew::Classes {
+                self.into()
             }
         }
     };

@@ -1,12 +1,13 @@
 use yew::prelude::*;
-use yewtil::NeqAssign;
 
-pub struct ButtonGroup {
-    props: ComponentProps,
-}
+css_class_enum!(ButtonGroupSize, [
+    Small => "btn-group-sm",
+    Normal => "",
+    Large => "btn-group-lg"
+]);
 
 #[derive(Properties, Clone, PartialEq)]
-pub struct ComponentProps {
+pub struct ButtonGroupProps {
     #[prop_or_default]
     pub class: String,
 
@@ -21,9 +22,43 @@ pub struct ComponentProps {
 
     #[prop_or_default]
     pub vertical: bool,
+
+    #[prop_or(ButtonGroupSize::Normal)]
+    pub size: ButtonGroupSize,
 }
 
-impl Component for ButtonGroup {
+#[function_component(ButtonGroup)]
+pub fn button_group(props: &ButtonGroupProps) -> Html {
+    let mut classes = classes!("btn-group", &props.class);
+
+    classes.push(props.size.into_classes());
+
+    html! {
+        <div class={classes} role={"group"}>
+            { for props.children.iter() }
+        </div>
+    }
+}
+
+#[derive(Properties, Clone, PartialEq)]
+pub struct ButtonToolbarProps {
+    #[prop_or_default]
+    pub class: String,
+
+    #[prop_or_default]
+    pub children: Children,
+}
+
+#[function_component(ButtonToolbar)]
+pub fn button_toolbar(props: &ButtonToolbarProps) -> Html {
+    html! {
+        <div class={classes!("btn-toolbar", &props.class)} role={"toolbar"}>
+            { for props.children.iter() }
+        </div>
+    }
+}
+
+/* impl Component for ButtonGroup {
     type Message = ();
     type Properties = ComponentProps;
 
@@ -59,3 +94,4 @@ impl Component for ButtonGroup {
         }
     }
 }
+ */

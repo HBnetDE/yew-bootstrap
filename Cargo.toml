@@ -36,6 +36,7 @@ lto = true
 [features]
 alert = []
 button = []
+button_group = ["button"]
 
 [workspace]
 members = [

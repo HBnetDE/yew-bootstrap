@@ -2,8 +2,6 @@
 
 use yew::prelude::*;
 
-use crate::util::css_class::CssClass;
-
 #[derive(Clone, PartialEq)]
 pub enum ButtonSize {
     Large,
@@ -31,8 +29,8 @@ css_class_enum!(ButtonColor, [
 
 impl ButtonColor {
     fn outlined(&self) -> String {
-        let class: CssClass = self.clone().into();
-        let split: Vec<_> = class.0.split("-").collect();
+        let class: &'static str = self.clone().into();
+        let split: Vec<_> = class.split("-").collect();
         let color = split.last().unwrap();
         format!("btn-outline-{}", color)
     }
@@ -72,8 +70,7 @@ pub fn button(props: &ButtonProps) -> Html {
     if props.outline {
         classes.push(props.style.outlined())
     } else {
-        let style_class: CssClass = props.style.into();
-        classes.push(style_class);
+        classes.push(props.style.into_classes());
     }
 
     match props.size {
