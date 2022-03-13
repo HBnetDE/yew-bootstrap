@@ -11,7 +11,9 @@ mod link;
 mod row; */
 
 /* pub use self::column::*; */
+#[cfg(feature = "alert")]
 pub use self::alert::*;
+#[cfg(feature = "button")]
 pub use self::button::*; /*
                          pub use self::button_group::*;
                          pub use self::container::*;
