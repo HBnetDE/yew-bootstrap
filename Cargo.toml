@@ -36,3 +36,8 @@ lto = true
 [features]
 alert = []
 button = []
+
+[workspace]
+members = [
+    "examples/*"
+]
